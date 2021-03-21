@@ -21,4 +21,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+
+Route::get('/despesa', 'App\Http\Controllers\DespesaController@index')->middleware(['auth'])->name('despesa.index');
+Route::get('/despesa/criar', 'App\Http\Controllers\DespesaController@create')->middleware(['auth'])->name('nova-despesa');
+Route::post('/despesa', 'App\Http\Controllers\DespesaController@store')->middleware(['auth'])->name('despesa.store');
 require __DIR__ . '/auth.php';

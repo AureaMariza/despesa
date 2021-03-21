@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DespesaRequest;
 use App\Models\Despesa;
+use App\Models\User;
 use Illuminate\Http\Request;
+
 
 class DespesaController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $despesa = Despesa::all();
+        return view('despesa', ['despesas' => $despesa]);
     }
 
     /**
@@ -24,7 +28,8 @@ class DespesaController extends Controller
      */
     public function create()
     {
-        //
+        $usuarios = User::all();
+        return view('despesa-form', ['users' => $usuarios]);
     }
 
     /**
@@ -33,9 +38,10 @@ class DespesaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DespesaRequest $request)
     {
-        //
+        Despesa::create($request->all());
+        return redirect('despesa.index');
     }
 
     /**

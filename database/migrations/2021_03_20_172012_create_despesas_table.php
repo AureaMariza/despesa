@@ -18,11 +18,11 @@ class CreateDespesasTable extends Migration
             $table->string('descricao', 300);
             $table->date('data');
             $table->string('anexo', 100);
-            $table->integer('user_id');
+            $table->bigInteger('user_id', false, true);
             $table->decimal('valor', 10, 2);
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
-        });
+                $table->foreign('user_id')->references('id')->on('users');
+            });
     }
 
     /**
