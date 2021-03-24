@@ -24,7 +24,11 @@ class DespesaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'descricao' => 'required|string|min:3|max:300',
+            'data' => 'required|date',
+            'anexo' => 'required|image|max:8192',
+            'user_id' => 'required|exists:users,id',
+            'valor' => 'required|numeric'
         ];
     }
 }

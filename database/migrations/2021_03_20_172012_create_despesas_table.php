@@ -22,7 +22,7 @@ class CreateDespesasTable extends Migration
             $table->decimal('valor', 10, 2);
             $table->timestamps();
                 $table->foreign('user_id')->references('id')->on('users');
-            });
+        });
     }
 
     /**
