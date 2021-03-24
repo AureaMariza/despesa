@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DespesaAlteracaoRequest;
 use App\Http\Requests\DespesaRequest;
 use App\Models\Despesa;
 use App\Models\User;
@@ -81,11 +82,11 @@ class DespesaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  DespesaAlteracaoRequest  $request
      * @param  \App\Models\Despesa  $despesa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Despesa $despesa)
+    public function update(DespesaAlteracaoRequest $request, Despesa $despesa)
     {
         $nomeAnexoAntigo = $despesa->anexo;
         if ($request->has('anexo') && $request->file('anexo')->isValid()) {

@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <div class="container">
+    <div class="container mx-auto sm:px lg:px-8">
       <h2>Formulário de Despesas</h2>
 
 
@@ -31,67 +31,66 @@
       <form action="{{route('despesa.store')}}" method="post" enctype="multipart/form-data">
         @else
         <form action="{{route('despesa.update', ['despesa' => $despesa])}}" method="post" enctype="multipart/form-data">
+          @method('PUT')
           @endif
           @csrf
-          <div class="form-group row">
-            <div class="col-md-6 mb-4 mb-lg-0">
-              <label for="descricao">Descrição:</label>
-              <input type="text" class="form-control" id="descricao" value="{{$despesa->descricao}}" placeholder="Entre com a descrição" name="descricao" required>
-            </div>
-            <div class="form-group row">
-              <div class="col-md-6 mb-4 mb-lg-0">
-                <label for="Data">Data </label>
-                <input type="date" class="form-control" id="data" value="{{empty($despesa->data) ? '' : $despesa->data->format('Y-m-d')}}" placeholder="Entre com a data" name="data" required>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-6 mb-4 mb-lg-0">
-                  <label for="valor">Valor </label>
-                  <input type="decimal" class="form-control" id="valor" value="{{$despesa->valor}}" placeholder="entre com o valor da despesa" name="valor" required><br>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-6 mb-4 mb-lg-0">
-                  <label for="user_id">Usuário</label>
-                  <select name="user_id" class="custom-select">
-                    <option value="">Selecione</option>
-                    @foreach ($users ?? [] as $user)
-                    <option {{($user->id == ($despesa->user->id ?? null)) ? "selected" : ""}} value="{{ $user->id }}">{{$user->name}}</option>
-                    @endforeach
-                  </select>
-                </div><br><br>
-              </div>
 
-              <div class="form-group row">
-                <div class="col-md-6 mb-4 mb-lg-0">
-                  @if (empty($despesa->id))
-                         <label for="anexo">Imagem </label>
-                         <input id="anexo" name="anexo" class="input-file" type="file" required />
-                  @else
-                        <div class="row">
-                          <div class="col-sm-12">
-                              <img src="{{ asset($despesa->anexo) }}" style="width:200px; height: auto;" />
-                          </div>
-                          <div class="col-sm-12">
-                              <span>Substituir Imagem: </span>&nbsp;<input id="anexo" name="anexo" class="input-file" type="file" />
-                          </div>
-                        </div>
-                  @endif
-                </div>
-              </div>
-              <div class="row">&nbsp;</div>
-              <div class="row">
-                <div class="col-md-6 mb-4 mb-lg-0">
-                  <p>
-                    @if(empty($despesa->id))
-                    <button type="submit" class="btn btn-sm btn-primary">Cadastrar</button>
-                    @elseif ($pode_alterar)
-                    <button type="submit" class="btn btn-sm btn-warning">Alterar</button>
-                    @endif
-                    <a href="{{ route('despesa.create') }}" class="btn btn-sm btn-success">Nova despesa</a>
-                    <a href="{{ route('despesa.index') }}" class="btn btn-sm" >Voltar</a>
-                  </p>
-                </div>
-              </div>
+          <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <label for="descricao">Descrição:</label>
+            <input type="text" class="form-control mt-1 block w-full" id="descricao" value="{{$despesa->descricao}}" placeholder="Entre com a descrição" name="descricao" required>
+          </div>
+
+          <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <label for="Data">Data </label>
+            <input type="date" class="form-control mt-1 block w-full" id="data" value="{{empty($despesa->data) ? '' : $despesa->data->format('Y-m-d')}}" placeholder="Entre com a data" name="data" required>
+          </div>
+
+          <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <label for="valor">Valor </label>
+            <input type="decimal" class="form-control mt-1" id="valor" value="{{$despesa->valor}}" placeholder="entre com o valor da despesa" name="valor" required><br>
+          </div>
+
+
+          <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <label for="user_id">Usuário</label>
+            <select name="user_id" class="custom-select">
+              <option value="">Selecione</option>
+              @foreach ($users ?? [] as $user)
+              <option {{($user->id == ($despesa->user->id ?? null)) ? "selected" : ""}} value="{{ $user->id }}">{{$user->name}}</option>
+              @endforeach
+            </select>
+          </div><br><br>
+
+
+
+          <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (empty($despesa->id))
+            <label for="anexo">Imagem </label>
+            <input id="anexo" name="anexo" class="input-file" type="file" required><br><br>
+            @else
+
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-4">
+              <img src="{{ asset($despesa->anexo) }}" class="input-file" style="width:200px; height: auto;" />
+            </div>
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-4">
+              <span>Substituir Imagem: </span>&nbsp;<input id="anexo" name="anexo" class="input-file" type="file" />
+
+            </div>
+            @endif
+          </div>
+          <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <p>
+              @if(empty($despesa->id))
+              <button type="submit" class="btn btn-sm btn-primary">Cadastrar</button>
+              @elseif ($pode_alterar)
+              <button type="submit" class="btn btn-sm btn-warning">Alterar</button>
+              @endif
+              <a href="{{ route('despesa.create') }}" class="btn btn-sm btn-success">Nova despesa</a>
+              <a href="{{ route('despesa.index') }}" class="btn btn-sm btn-primary">Voltar</a>
+
+            </p>
+          </div>
+
         </form>
     </div>
   </div>
