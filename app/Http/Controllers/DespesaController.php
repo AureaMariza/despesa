@@ -118,8 +118,7 @@ class DespesaController extends Controller
 
     private function upload(Request $request)
     {
-        $nomeAnexo = microtime(true) . $request->file('anexo')->getExtension();
-        $request->file('anexo')->move(public_path('anexos'), $nomeAnexo);
-        return 'anexos/' . $nomeAnexo;
+        // $nomeAnexo = microtime(true) . $request->file('anexo')->getExtension();
+        return $request->file('anexo')->storePublicly('anexos');
     }
 }

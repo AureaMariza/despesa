@@ -13,8 +13,6 @@
                     <p>
                         <a class="ml-3 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 no-underline" href="{{route('despesa.create')}}">{{ __('Cadastrar') }}</a>
                     </p>
-
-
                     <!-- <a href="{{ route('despesa.create') }}" class="btn btn-sm btn-success">Nova despesa</a> -->
                 </div>
             </div>
@@ -50,9 +48,15 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody class="bg-white divide-y divide-gray-200">
-                                            @foreach($despesas as $user)
                                         <tbody class="text-gray-600 text-sm font-light">
+                                            @if($despesas->isEmpty())
+                                                <tr>
+                                                <td colspan="6" class="text-center"><span class="text-black-500 uppercase tracking-wider font-medium">Nenhuma despesa encontrada</span></td>
+                                                </tr>
+                                            
+                                            @endif
+                                            @foreach($despesas as $user)
+                                        
                                             <tr class="border-b border-gray-200 hover:bg-gray-100">
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     {{$user->id}}
@@ -66,7 +70,7 @@
                                                     &nbsp;
                                                     <a href="{{route('despesa.show', $user->id)}}"><i class="far fa-eye fa-lg"></i></a>
                                                     &nbsp;
-                                                    <form action="{{route('despesa.destroy', $user->id)}}" method="post" style="display:inline">
+                                                    <form action="{{route('despesa.destroy', $user->id)}}" method="post"  onsubmit="return confirmar()" style="display:inline">
                                                         @method('DELETE')
                                                         @csrf()
                                                         <button type="submit"><i class="far fa-trash-alt fa-lg;"></i></a>
@@ -74,7 +78,7 @@
                                                     </form>
                                                 </td>
                                             </tr>
-                                        </tbody>
+                                      
                                         @endforeach
                                         </tbody>
                                     </table>
@@ -87,3 +91,9 @@
         </div>
     </div>
 </x-app-layout>
+<script>
+function confirmar() {
+    return confirm("Deseja realmente excluir?");
+}
+
+</script>
